@@ -262,10 +262,10 @@ export default function Task() {
 
       {/* Task Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-  {tasks.map((task) => (
+  {tasks.map((task, index) => (
     <div
       key={task.task_id}
-      className={`relative p-6 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 ${
+      className={`relative p-6 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 animate__animated animate__fadeIn animate__delay-${index * 0.2}s ${
         task.priority === "high"
           ? "bg-red-50 border-l-8 border-red-500"
           : task.priority === "medium"
@@ -288,24 +288,18 @@ export default function Task() {
       </div>
 
       {/* Task Title */}
-      <h2 className="text-2xl font-semibold text-gray-800 mb-2 flex items-center gap-2">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-2 flex items-center gap-2 animate__animated animate__fadeInUp">
         {task.title}
       </h2>
 
       {/* Task Category */}
-      <p className="text-sm text-gray-500 mb-4">
+      <p className="text-sm text-gray-500 mb-4 animate__animated animate__fadeInUp">
         <span className="font-semibold text-gray-700">Category:</span>{" "}
         {task.category || "None"}
       </p>
 
       {/* Status Toggle */}
-      <div className="flex items-center mb-4">
-        {/* <input
-          type="checkbox"
-          checked={task.status === "completed"}
-          onChange={() => handleToggleStatus(task.task_id, task.status)}
-          className="mr-2 h-4 w-4 accent-blue-500"
-        /> */}
+      <div className="flex items-center mb-4 animate__animated animate__fadeInUp">
         <span
           className={`text-sm font-medium flex items-center gap-2 ${
             task.status === "completed" ? "text-green-600" : "text-red-600"
@@ -313,12 +307,18 @@ export default function Task() {
         >
           {task.status === "completed" ? (
             <>
-              <BsCheckCircle onClick={()=> handleToggleStatus(task.task_id, task.status)}  className="text-lg" />
+              <BsCheckCircle
+                onClick={() => handleToggleStatus(task.task_id, task.status)}
+                className="text-lg"
+              />
               Completed
             </>
           ) : (
             <>
-              <BsExclamationCircle onClick={()=> handleToggleStatus(task.task_id, task.status)} className="text-lg" />
+              <BsExclamationCircle
+                onClick={() => handleToggleStatus(task.task_id, task.status)}
+                className="text-lg"
+              />
               Incomplete
             </>
           )}
@@ -326,7 +326,7 @@ export default function Task() {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-between">
+      <div className="flex justify-between animate__animated animate__fadeInUp">
         <button
           onClick={() => handleEditTask(task)}
           className="flex items-center gap-2 px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-300 transition-all"
@@ -345,6 +345,7 @@ export default function Task() {
     </div>
   ))}
 </div>
+
 
       {/* Add Task Modal */}
       {isModalOpen && (
